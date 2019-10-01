@@ -199,6 +199,11 @@ public class MongoRules {
           return strings.get(0) + "[" + strings.get(1) + "]";
         }
       }
+      if (call.getOperator() == SqlStdOperatorTable.IS_NULL) {
+        return "{$eq: [" + strings.get(0) + ",null]}";
+      } else if (call.getOperator() == SqlStdOperatorTable.IS_NOT_NULL) {
+        return "{$neq: [" + strings.get(0) + ",null]}";
+      }
       if (call.getOperator() == SqlStdOperatorTable.CASE) {
         StringBuilder sb = new StringBuilder();
         StringBuilder finish = new StringBuilder();
